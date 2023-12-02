@@ -1,5 +1,10 @@
 import axios from 'axios'
-import type { IceRequestInterceptors, IceAxiosInstance, IceRequestConfig } from './types'
+import type {
+  IceRequestInterceptors,
+  IceAxiosInstance,
+  IceRequestConfig,
+  IceResponse
+} from './types'
 export const DEFAULT_LOADING = true
 
 export class IceRequest<T = any> {
@@ -45,13 +50,13 @@ export class IceRequest<T = any> {
     )
   }
 
-  request<T>(config: IceRequestConfig<T>): Promise<T> {
+  request<T = any, R = IceResponse<T>, D = any>(config: IceRequestConfig<D>): Promise<R> {
     return new Promise((resolve, reject) => {
       if (config.showLoading === false) {
         this.showLoading = config.showLoading
       }
       this.instance
-        .request<T, T>(config)
+        .request<T, R>(config)
         .then((res) => {
           resolve(res)
         })
@@ -64,17 +69,17 @@ export class IceRequest<T = any> {
         })
     })
   }
-  get<T = any>(config: IceRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'GET' })
+  get<T = any, R = IceResponse<T>, D = any>(config: IceRequestConfig<D>): Promise<R> {
+    return this.request<T, R>({ ...config, method: 'GET' })
   }
-  post<T = any>(config: IceRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'POST' })
+  post<T = any, R = IceResponse<T>, D = any>(config: IceRequestConfig<D>): Promise<R> {
+    return this.request<T, R>({ ...config, method: 'POST' })
   }
-  delete<T = any>(config: IceRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'DELETE' })
+  delete<T = any, R = IceResponse<T>, D = any>(config: IceRequestConfig<D>): Promise<R> {
+    return this.request<T, R>({ ...config, method: 'DELETE' })
   }
-  patch<T = any>(config: IceRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, method: 'PATCH' })
+  patch<T = any, R = IceResponse<T>, D = any>(config: IceRequestConfig<D>): Promise<R> {
+    return this.request<T, R>({ ...config, method: 'PATCH' })
   }
 }
 

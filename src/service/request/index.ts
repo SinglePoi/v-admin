@@ -1,9 +1,8 @@
 import IceRequest from './ice-request'
 import type { IceRequest as instance } from './ice-request'
 import type { IceRequestConfig } from './types'
-
-const BASE_URL = 'http://jsonplaceholder.typicode.com/posts'
-const TIME_OUT: number = 10000
+export type { IceRequestConfig } from './types'
+import { BASE_URL, TIME_OUT } from './config'
 
 const config: IceRequestConfig = {
   baseURL: BASE_URL,
