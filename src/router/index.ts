@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import UserLogin from '@/views/user-login.vue'
+import UserLogin from '@/views/login/login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
