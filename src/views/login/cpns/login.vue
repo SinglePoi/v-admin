@@ -6,6 +6,7 @@ import { useLocalCache } from '@/hooks/use-cache'
 import type { LoginParams } from './types'
 import type { DataType } from '@/service/request/types'
 import type { LoginResponseDate } from '@/service/login/types'
+import router from '@/router'
 
 defineOptions({
   name: 'login'
@@ -36,7 +37,7 @@ const loginAction = async (isKeepPassword: Boolean) => {
       customer
         .login({ ...loginForm, name: 'coderwhy' })
         .then((res: DataType<LoginResponseDate>) => {
-          console.log(res)
+          router.push('/main')
         })
     } else {
       console.log('error submit!', fields)
