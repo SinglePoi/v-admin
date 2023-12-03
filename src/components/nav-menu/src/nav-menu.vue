@@ -2,6 +2,8 @@
 import { useAccount } from '@/stores'
 import type { NavMenuProps } from '../types'
 import IconCommunity from '@/components/icons/iconLogo.vue'
+import router from '@/router'
+import { ITEM_RENDER_EVT } from 'element-plus/es/components/virtual-list/src/defaults.mjs'
 defineOptions({
   name: 'NavMenu'
 })
@@ -13,11 +15,10 @@ const props = withDefaults(defineProps<NavMenuProps>(), {
 const user = useAccount()
 const userMenus = computed(() => user.getUserMenus())
 
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+const handleMenuItemClick = (item: any) => {
+  router.push({
+    path: item.url ?? '/not-found'
+  })
 }
 </script>
 
@@ -34,8 +35,6 @@ const handleClose = (key: string, keyPath: string[]) => {
       default-active="2"
       text-color="#fff"
       :collapse="collapse"
-      @open="handleOpen"
-      @close="handleClose"
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type === 1">
@@ -45,7 +44,7 @@ const handleClose = (key: string, keyPath: string[]) => {
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="`${subitem.id}`">
+              <el-menu-item :index="`${subitem.id}`" @click="handleMenuItemClick(subitem)">
                 <el-icon v-if="item.icon"></el-icon>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>

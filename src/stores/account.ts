@@ -5,6 +5,8 @@ import { localCache } from '@/hooks/use-cache'
 import type { UserModel } from './types'
 import type { DataType } from '@/service/request/types'
 import { USERSTATUS } from './constants'
+import { mapMenusToRoutes } from '@/utils/map-menus'
+import router from '@/router'
 
 export const useAccount = defineStore('user', () => {
   const currentStatus = reactive<UserModel.LoginStatus>({
@@ -27,6 +29,11 @@ export const useAccount = defineStore('user', () => {
   function setUserMenus(userMenus: any[]) {
     currentStatus.userMenus = userMenus
     localCache.setCache(USERSTATUS.USERMENUS, userMenus)
+
+    const routes = mapMenusToRoutes(userMenus)
+    routes.forEach((route) => {
+      router.addRoute('main', route)
+    })
   }
 
   function getUserInfo(): Record<string, any> {

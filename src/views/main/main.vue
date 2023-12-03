@@ -15,7 +15,11 @@ const handleFolgChange = (isFold: boolean) => {
       <el-aside :width="isCollapse ? '60px' : '210px'"><NavMenu :collapse="isCollapse" /></el-aside>
       <el-container class="page">
         <el-header><NavHeader @fold-change="handleFolgChange" /></el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <div class="page-info">
+            <RouterView />
+          </div>
+        </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
