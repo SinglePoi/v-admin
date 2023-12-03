@@ -2,14 +2,19 @@
 defineOptions({
   name: 'MainPage'
 })
+
+const isCollapse = ref(false)
+const handleFolgChange = (isFold: boolean) => {
+  isCollapse.value = isFold
+}
 </script>
 
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="200px"><NavMenu></NavMenu></el-aside>
+      <el-aside :width="isCollapse ? '60px' : '210px'"><NavMenu :collapse="isCollapse" /></el-aside>
       <el-container class="page">
-        <el-header>Header</el-header>
+        <el-header><NavHeader @fold-change="handleFolgChange" /></el-header>
         <el-main class="page-content">Main</el-main>
         <el-footer>Footer</el-footer>
       </el-container>
@@ -29,14 +34,14 @@ defineOptions({
 .main-content,
 .page {
   height: 100%;
+  background-color: #fff;
 }
 
 .page-content {
   height: calc(100% - 48px);
 }
 .el-aside {
-  overflow: auto;
-  background-color: #d9ecff;
+  overflow: hidden;
   text-align: left;
   cursor: pointer;
   transition: width 0.3s linear;
@@ -45,14 +50,14 @@ defineOptions({
 .el-header {
   display: flex;
   text-align: center;
-  align-items: center;
-  background-color: #c6e2ff;
+}
+.el-header {
+  border-bottom: 0.05rem #dcdfe6 solid;
 }
 .el-header {
   height: 48px !important;
 }
 .el-main {
   text-align: center;
-  background-color: #ecf5ff;
 }
 </style>

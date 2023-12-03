@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAccount } from '@/stores'
 import type { NavMenuProps } from '../types'
-import IconCommunity from '@/components/icons/IconLogo.vue'
+import IconCommunity from '@/components/icons/iconLogo.vue'
 defineOptions({
   name: 'NavMenu'
 })
@@ -25,7 +25,7 @@ const handleClose = (key: string, keyPath: string[]) => {
   <div class="nav-menu">
     <div class="logo">
       <el-icon class="img"><IconCommunity /></el-icon>
-      <span v-if="!collapse" class="title">v-admin</span>
+      <Transition name="title"> <span v-if="!collapse" class="title">v-admin</span></Transition>
     </div>
     <el-menu
       active-text-color="#fff "
@@ -38,24 +38,24 @@ const handleClose = (key: string, keyPath: string[]) => {
       @close="handleClose"
     >
       <template v-for="item in userMenus" :key="item.id">
-        <templdate v-if="item.type === 1">
+        <template v-if="item.type === 1">
           <el-sub-menu :index="`${item.id}`">
             <template #title>
-              <el-icon v-if="item.icon"><location /></el-icon>
+              <el-icon v-if="item.icon"></el-icon>
               <span>{{ item.name }}</span>
             </template>
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="`${subitem.id}`">
-                <el-icon v-if="item.icon"><icon-menu /></el-icon>
+                <el-icon v-if="item.icon"></el-icon>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
-        </templdate>
+        </template>
 
         <template v-if="item.type === 2">
           <el-menu-item :index="`${item.id}`">
-            <el-icon v-if="item.icon"><icon-menu /></el-icon>
+            <el-icon v-if="item.icon"></el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -109,5 +109,21 @@ const handleClose = (key: string, keyPath: string[]) => {
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 100%;
   height: calc(100% - 48px);
+}
+.title-enter-from,
+.title-leave-to {
+  opacity: 0;
+}
+
+.title-leave-from,
+.title-enter-to {
+  opacity: 1;
+}
+
+.title-enter-active {
+  transition: opacity 0.2s 0.1s linear;
+}
+.title-leave-active {
+  transition: opacity 0.2s linear;
 }
 </style>
