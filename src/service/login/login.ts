@@ -1,23 +1,28 @@
 import iceRequest from '@/service/request'
-import type { IceRequestConfig } from '@/service/request'
-import type { LoginResponse, LoginResponseDate } from './types'
 
 import LoginAPI from './api'
 import type { LoginParams } from '@/views/login/cpns/types'
-import type { DataType } from '../request/types'
+import type { ResponseResult } from '../request/types'
+import type { LoginResponseDate } from './types'
 
-export function loginRequest(form: LoginParams): LoginResponse {
-  return iceRequest.post<DataType<LoginResponseDate>>({
+export function loginRequest(form: LoginParams): ResponseResult<LoginResponseDate> {
+  return iceRequest.post<LoginResponseDate>({
     url: LoginAPI.LOGIN,
     showLoading: true,
     data: form
   })
 }
 
-export function requestUserInfoById(config: IceRequestConfig) {
-  return iceRequest.get({})
+export function requestUserInfoById(id: number): ResponseResult {
+  return iceRequest.get<unknown>({
+    url: LoginAPI.USERINFO + id,
+    showLoading: false
+  })
 }
 
-export default {
-  loginRequest
+export function requestUserMenusByRoleId(id: number): ResponseResult {
+  return iceRequest.get<unknown>({
+    url: LoginAPI.USERROLE + id + LoginAPI.MENUS,
+    showLoading: false
+  })
 }

@@ -19,9 +19,11 @@ export interface DataType<T = any> {
   data: T
 }
 
-export interface IceResponse<D = any> extends AxiosResponse<DataType, D> {}
+export interface IceResponse<T = any> extends AxiosResponse<DataType<T>> {}
 
 export interface IceRequestConfig<T = any> extends AxiosRequestConfig<T> {
   interceptors?: IceRequestInterceptors<T>
   showLoading?: boolean
 }
+
+export interface ResponseResult<T = any> extends Promise<DataType<T>> {}

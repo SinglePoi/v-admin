@@ -3,8 +3,9 @@ import { loginRulesMap } from '../rules/login'
 import type { FormInstance } from 'element-plus'
 import { useAccount } from '@/stores/account'
 import { useLocalCache } from '@/hooks/use-cache'
-import type { LoginResponseResult } from '@/service/login/types'
 import type { LoginParams } from './types'
+import type { DataType } from '@/service/request/types'
+import type { LoginResponseDate } from '@/service/login/types'
 
 defineOptions({
   name: 'login'
@@ -32,9 +33,11 @@ const loginAction = async (isKeepPassword: Boolean) => {
         localCache.deleteCache('password')
       }
 
-      customer.login({ ...loginForm, name: 'coderwhy' }).then((res: LoginResponseResult) => {
-        console.log(res)
-      })
+      customer
+        .login({ ...loginForm, name: 'coderwhy' })
+        .then((res: DataType<LoginResponseDate>) => {
+          console.log(res)
+        })
     } else {
       console.log('error submit!', fields)
     }
