@@ -3,7 +3,6 @@ import { useAccount } from '@/stores'
 import type { NavMenuProps } from '../types'
 import IconCommunity from '@/components/icons/iconLogo.vue'
 import router from '@/router'
-import { ITEM_RENDER_EVT } from 'element-plus/es/components/virtual-list/src/defaults.mjs'
 defineOptions({
   name: 'NavMenu'
 })

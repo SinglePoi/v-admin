@@ -49,7 +49,7 @@ export const useAccount = defineStore('user', () => {
       const userInfo = localCache.getCache(USERSTATUS.USERMENUS)
       setUserMenus(userInfo)
     }
-    return { ...currentStatus.userMenus }
+    return [...currentStatus.userMenus]
   }
 
   function getUser(): Record<string, any> {
