@@ -2,10 +2,13 @@
 defineOptions({
   name: 'SysUser'
 })
+import { searchFormConfig } from './search.config'
 </script>
 
 <template>
-  <div class="user"><h2>这是用户管理</h2></div>
+  <div class="user">
+    <SearchForm :searchFormConfig="searchFormConfig"></SearchForm>
+  </div>
 </template>
 
 <style scoped></style>
