@@ -13,8 +13,10 @@ const props = withDefaults(defineProps<NavMenuProps>(), {
 
 const user = useAccount()
 const userMenus = computed(() => user.getUserMenus())
+const focusMenu = computed(() => user.focusMenu.toString())
 
 const handleMenuItemClick = (item: any) => {
+  user.pushMenuFocus(item.id)
   router.push({
     path: item.url ?? '/not-found'
   })
@@ -31,7 +33,7 @@ const handleMenuItemClick = (item: any) => {
       active-text-color="#fff "
       background-color="#282C34"
       class="el-menu-vertical-demo"
-      default-active="2"
+      :default-active="focusMenu"
       text-color="#fff"
       :collapse="collapse"
     >
